@@ -1,0 +1,68 @@
+{
+  "name": "@funnelhub/sidebar",
+  "version": "1.0.0",
+  "description": "Embeddable sidebar",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "private": false,
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "tsup --watch --format esm,cjs,iife --legacy-output",
+    "build": "tsup --format esm,cjs,iife --minify --legacy-output",
+    "test": "jest --passWithNoTests --runInBand",
+    "prepare": "npm run build"
+  },
+  "module": "dist/esm/index.js",
+  "peerDependencies": {
+    "next": "13.5.6",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@esbuild-plugins/node-resolve": "^0.1.4",
+    "@types/node": "^20",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "autoprefixer": "^10",
+    "eslint": "^8",
+    "eslint-config-next": "13.5.6",
+    "postcss": "^8",
+    "react-router-dom": "^6.8.1",
+    "tailwindcss": "^3",
+    "tslib": "^2.3.1",
+    "tsup": "^6.7.0",
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@chakra-ui/anatomy": "^2.2.1",
+    "@chakra-ui/color-mode": "^2.2.0",
+    "@chakra-ui/icons": "^2.1.1",
+    "@chakra-ui/layout": "^2.3.1",
+    "@chakra-ui/react": "^2.8.1",
+    "@chakra-ui/shared-utils": "^2.0.5",
+    "@chakra-ui/theme-tools": "^2.1.1",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@refinedev/core": "^4.44.9",
+    "antd": "^5.10.2",
+    "framer-motion": "^10.16.4",
+    "react-icons": "^4.11.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/funnelhub-io/funnelhub-sidebar.git"
+  },
+  "author": "funnelhub.io",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/funnelhub-io/funnelhub-sidebar/issues"
+  },
+  "homepage": "https://github.com/funnelhub-io/funnelhub-sidebar#readme"
+}
