@@ -1,0 +1,23 @@
+import {
+    FiHome,
+    FiSettings
+} from 'react-icons/fi'
+import {
+    FaRobot,
+    FaCalendarDay,
+    FaVideo,
+    FaFunnelDollar,
+    FaWindowRestore
+} from 'react-icons/fa'
+import { IconType } from 'react-icons'
+import { CSSProperties } from 'react'
+
+interface LinkItemProps {
+    name: string
+    icon: IconType,
+    url: string,
+    options?: CSSProperties
+}
+
+export const LinkItems: Array<LinkItemProps> = []
+

@@ -1,6 +1,5 @@
 import React, { CSSProperties, useState } from 'react'
 import { Layout, Grid, LayoutProps, Menu, Button, Drawer } from 'antd'
-import { LinkItems } from '../../lib/links'
 import {
     BarsOutlined,
 } from "@ant-design/icons"
@@ -9,15 +8,17 @@ import Logo from '@components/Logo'
 import { colors } from 'src/lib/theme'
 import { SidebarProps } from '@components/SidebarProps'
 import { useLink } from '@refinedev/core'
+import { useMenu } from 'src/hooks/useMenu'
 
 const { Sider } = Layout
 
 interface AntdSidebarProps extends SidebarProps, LayoutProps {
 }
 
-export const AntdSidebar = ({ onClose, onOpen, initialCollapsedState, ...rest }: AntdSidebarProps) => {
+export const AntdSidebar = ({ onClose, onOpen, config, initialCollapsedState, ...rest }: AntdSidebarProps) => {
     const [collapsed, setCollapsed] = useState(initialCollapsedState ?? false)
     const [mobileSiderOpen, setMobileSiderOpen] = useState(false)
+    const { data, isLoading, error } = useMenu(config)
     const breakpoint = Grid.useBreakpoint()
     const isMobile =
         typeof breakpoint.lg === "undefined" ? false : !breakpoint.lg
@@ -33,7 +34,7 @@ export const AntdSidebar = ({ onClose, onOpen, initialCollapsedState, ...rest }:
                         color: colors.white[200] 
                     }}
                     mode="inline">
-                        {LinkItems.map((link, index) => (
+                        {!isLoading && !error && data.map((link, index) => (
                             <Menu.Item 
                             key={String(index + 1)}
                             icon={React.createElement(link.icon)}
@@ -48,7 +49,7 @@ export const AntdSidebar = ({ onClose, onOpen, initialCollapsedState, ...rest }:
                             onMouseLeave={(e) => { 
                                 e.domEvent.currentTarget.style.backgroundColor = colors.gray[900]
                             }}> 
-                            <Link to={link.url}>{link.name} </Link>
+                            <Link to={link.url} {...link.options}>{link.name} </Link>
                             </Menu.Item> ))}  
                 </Menu>
             </>

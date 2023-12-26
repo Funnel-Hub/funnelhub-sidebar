@@ -6,17 +6,18 @@ import { Icon } from "@chakra-ui/react"
 import { FaAngleLeft } from 'react-icons/fa'
 import { colors } from "../../lib/theme"
 import React from "react"
-import { LinkItems } from "../../lib/links"
 import Logo from "../Logo"
-import { SidebarProps } from "@components/SidebarProps"
+import { SidebarProps } from "../../components/SidebarProps"
+import { useMenu } from "src/hooks/useMenu"
 
 
 interface ChakraSidebarProps extends SidebarProps, BoxProps {
 }
 
-export const ChakraSidebar = ({ onClose, onOpen, initialCollapsedState, ...rest }: ChakraSidebarProps) => {
+export const ChakraSidebar = ({ onClose, onOpen, config, initialCollapsedState, ...rest }: ChakraSidebarProps) => {
 
     const [isCollapsed, setIsCollapsed] = useState(initialCollapsedState ?? false)
+    const { data, isLoading, error } = useMenu(config)
 
     return (
         <Box
@@ -61,8 +62,13 @@ export const ChakraSidebar = ({ onClose, onOpen, initialCollapsedState, ...rest 
                 </Flex>
             </Flex>
 
-            {LinkItems.map((link) => (
-                <NavItem isCollapsed={isCollapsed} key={link.name} url={link.url} icon={link.icon}>
+            {!isLoading && !error && data.map((link) => (
+                <NavItem 
+                    isCollapsed={isCollapsed}
+                    key={link.name}
+                    url={link.url}
+                    icon={link.icon}
+                    style={link.options}>
                     {!isCollapsed ? link.name : null}
                 </NavItem>
             ))}
