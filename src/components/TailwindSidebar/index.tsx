@@ -22,13 +22,19 @@ export const TailwindSidebar = ({
   return (
     <div
       className={cx(
-        "relative block h-full border-r border-r-[#282939] bg-[#14141F]",
+        "relative block h-full border-r bg-gray-900 border-r-gray-800",
         isCollapsed ? "w-16" : "w-60",
 		className
-      )}>
-      <div className={cx("mb-[1.875rem] me-8 ms-8 flex h-20 items-center", isCollapsed && "flex-col")}>
+      )}
+	>
+      <div className={cx("mb-8 mx-8 flex h-20 items-center", isCollapsed && "flex-col")}>
         {!isCollapsed && (
-          <Logo size={8} style={{ marginLeft: isCollapsed ? "0px" : "-15px" }} collapsed={isCollapsed} />
+          <Logo
+		    size={8}
+			collapsed={isCollapsed}
+			paddingTop='15px'
+			style={{ marginLeft: isCollapsed ? "0px" : "-15px" }}
+		  />
         )}
         <div className="flex flex-row items-center">
           {isCollapsed ? (
@@ -43,7 +49,8 @@ export const TailwindSidebar = ({
             />
           ) : (
             <FaAngleLeft
-              className="ml-[4.6875rem] h-5 w-5"
+              className="h-5 w-5"
+			  style={{marginLeft: '4.6875rem'}}
               onClick={() => {
                 setIsCollapsed(!isCollapsed);
                 if (onClose) onClose();
