@@ -3,5 +3,6 @@ export { ApiResponse, ApiConfig } from "./lib/api"
 
 export { 
     AntdSidebar,
-    ChakraSidebar
+    ChakraSidebar,
+	TailwindSidebar
 } from "./components"
