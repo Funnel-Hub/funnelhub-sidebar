@@ -6,5 +6,5 @@ export interface SidebarProps {
   onOpen?: () => void
   initialCollapsedState?: boolean
   config?: ApiConfig
-  menuData?: Array<LinkItemProps>
+  menuData: Array<LinkItemProps>
 }
