@@ -16,10 +16,11 @@ export const NavItem = ({ isCollapsed, Icon, url, style, children }: NavItemProp
     <a href={url} style={style} className="font-normal focus:shadow-none">
       <div
         className={cx(
-          "flex cursor-pointer items-center rounded-lg p-4 hover:bg-[#BF0D51] hover:text-[#F2F2F7]",
+          "flex cursor-pointer items-center rounded-lg p-4 hover:bg-red-500 hover:text-white-200",
           isCollapsed ? "mx-2 flex-col" : "mx-4"
-        )}>
-        {Icon && <Icon className={cx("text-base hover:text-[#F2F2F7]", !isCollapsed && "mr-4 ")} />}
+        )}
+	  >
+        {Icon && <Icon className={cx("text-base hover:text-white-200", !isCollapsed && "mr-4 ")} />}
         {children}
       </div>
     </a>
