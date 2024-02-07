@@ -66,6 +66,7 @@ export const ChakraSidebar = ({
               w={5}
               h={5}
               marginLeft="75px"
+			  color={'#FFFFFF'}
               onClick={() => {
                 setIsCollapsed(!isCollapsed)
                 if (onClose) onClose()

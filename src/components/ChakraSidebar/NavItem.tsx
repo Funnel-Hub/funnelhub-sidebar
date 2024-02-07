@@ -17,7 +17,7 @@ export const NavItem = ({ isCollapsed, icon, url, style, children, ...rest }: Na
         <Box
             as="a"
             href={url}
-            style={{ textDecoration: 'none', ...style}}
+            style={{ textDecoration: 'none', color: '#FFFFFF', ...style}}
             _focus={{ boxShadow: 'none' }}>
             <Flex
                 align="center"
