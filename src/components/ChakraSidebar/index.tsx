@@ -1,14 +1,13 @@
 import { useColorModeValue } from "@chakra-ui/color-mode"
 import { Box, BoxProps, Flex } from "@chakra-ui/layout"
-import { NavItem } from "./NavItem"
-import { useState } from "react"
 import { Icon } from "@chakra-ui/react"
+import React, { useState } from "react"
 import { FaAngleLeft } from "react-icons/fa"
-import { colors } from "../../lib/theme"
-import React from "react"
-import Logo from "../Logo"
-import { SidebarProps } from "../../components/SidebarProps"
 import { useMenu } from "src/hooks/useMenu"
+import { SidebarProps } from "../../components/SidebarProps"
+import { colors } from "../../lib/theme"
+import Logo from "../Logo"
+import { NavItem } from "./NavItem"
 
 interface ChakraSidebarProps extends SidebarProps, BoxProps {}
 
