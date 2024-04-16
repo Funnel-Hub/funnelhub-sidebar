@@ -6,11 +6,14 @@ export type ApiResponse = {
     url: string
     options?: CSSProperties
 	type?: 'button' | 'menu'
-    menuData?: {
-      name: string
-      url: string
-      icon: string
-    }[]
+	menu?: {
+		title: string
+		menuData: {
+		    name: string
+		    url: string
+		    icon: string
+		}[]
+	}
 }
 
 export interface ApiConfig {

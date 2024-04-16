@@ -16,7 +16,10 @@ export interface SidebarOptions {
   url: string
   options?: CSSProperties
   type?: 'button' | 'menu'
-  menuData?: MenuItemData[]
+  menu?: {
+	title: string
+    menuData: MenuItemData[]
+  }
 }
 
 export const useMenu = (config: ApiConfig) => {
@@ -39,13 +42,16 @@ export const useMenu = (config: ApiConfig) => {
             ...value,
             icon: Icon,
 			type: value.type ?? 'button',
-			menuData: value.menuData?.map((data) => {
-			  const Icon = FaIcons[data.icon as keyof typeof FaIcons]
-			  return {
-				...data,
-				icon: Icon
-			  }
-			})
+			menu: {
+				title: value.menu?.title as unknown as string,
+				menuData: value.menu?.menuData.map((data) => {
+				  const Icon = FaIcons[data.icon as keyof typeof FaIcons]
+				  return {
+					...data,
+					icon: Icon
+				  }
+				}) as unknown as MenuItemData[]
+			}
           }
         })
         setData(sidebarOptions)

@@ -79,13 +79,15 @@ export const ChakraSidebar = ({
 
 		{!isLoading && !error && data?.map((link) => (
 		  <>
-		    {(link.type === 'menu' && link.menuData) ? (
+		    {(link.type === 'menu' && link.menu) ? (
 			  <SidebarMenuItem
 			    key={link.name}
-			    name={link.name}
+				isCollapsed={isCollapsed}
 				icon={link.icon}
-				menuData={link.menuData}
-			  />
+				menu={link.menu}
+			  >
+				{!isCollapsed ? link.name : null}
+			  </SidebarMenuItem>
 			) : (
 			  <NavItem
 			    isCollapsed={isCollapsed}

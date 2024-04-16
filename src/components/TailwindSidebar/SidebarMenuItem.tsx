@@ -6,24 +6,19 @@ import { MenuItemData } from 'src/hooks/useMenu'
 import { IconType } from 'react-icons'
 
 type MenuItemProps = {
-  isCollapsed: boolean
-  children: React.ReactNode
+  name: string
   icon: IconType
-  menu: {
-	title: string
-    menuData: MenuItemData[]
-  }
+  menuData: MenuItemData[]
 }
 
-export const SidebarMenuItem = ({ isCollapsed, children, icon: ItemIcon, menu: { title, menuData } }: MenuItemProps) => (
+export const SidebarMenuItem = ({ name, icon: ItemIcon, menuData }: MenuItemProps) => (
   <Menu isLazy placement='right'>
     <MenuButton
 	  display='flex'
 	  alignItems='center'
-	  height={isCollapsed ? '48px' : 'unset'}
-	  width={isCollapsed ? "calc(100% - 1rem)" : "calc(100% - 2rem)"}
-	  mx={isCollapsed ? 2 : 4 }
-	  p={isCollapsed ? 0 : "4" }
+	  width="calc(100% - 32px)"
+	  mx={4}
+	  p="4"
 	  borderRadius="lg"
 	  role="group"
 	  cursor="pointer"
@@ -37,17 +32,14 @@ export const SidebarMenuItem = ({ isCollapsed, children, icon: ItemIcon, menu: {
 		color: colors.white[200],
 	  }}
     >
-	  <Flex
-	    alignItems='center'
-		gap={isCollapsed ? '0' : '16px'}
-		justifyContent={isCollapsed ? 'center' : 'normal'}>
+	  <Flex alignItems='center' gap='16px'>
 		<ItemIcon size={16} />
-		<Text as='span'>{children}</Text>
+		<Text as='span'>{name}</Text>
 	  </Flex>
 	</MenuButton>
-    <MenuList bgColor={colors.gray[800]}>
+    <MenuList bgColor={colors.gray[800]} zIndex='overlay'>
       <MenuGroup
-	    title={title}
+	    title='Canais de Suporte'
 		marginX='3'
 		marginY='2'
 		fontSize='0.875rem'
@@ -64,9 +56,6 @@ export const SidebarMenuItem = ({ isCollapsed, children, icon: ItemIcon, menu: {
 			alignItems='center'
 			flexDirection='row-reverse'
 			bgColor={colors.gray[800]}
-			_hover={{
-			  bg: colors.gray[700]
-			}}
 		  >
 			<Flex alignItems='center' gap={2}>
 			  <Icon as={icon} boxSize="18px" />

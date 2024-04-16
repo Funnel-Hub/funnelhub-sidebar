@@ -19,5 +19,8 @@ export interface LinkItemProps {
   url: string
   options?: CSSProperties
   type?: 'button' | 'menu'
-  menuData?: MenuItemData[]
+  menu?: {
+	title: string
+    menuData: MenuItemData[]
+  }
 }
