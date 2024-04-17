@@ -1,69 +1,85 @@
-import React from 'react'
-import { Flex, Icon, Menu, MenuButton, MenuGroup, MenuItem, MenuList, Text } from '@chakra-ui/react'
+import React, { useEffect, useRef, useState } from 'react'
 import { HiOutlineExternalLink } from 'react-icons/hi'
-import { colors } from 'src/lib/theme'
-import { MenuItemData } from 'src/hooks/useMenu'
-import { IconType } from 'react-icons'
+import { MenuItemProps } from '@components/SidebarProps'
+import cx from 'classnames'
 
-type MenuItemProps = {
-  name: string
-  icon: IconType
-  menuData: MenuItemData[]
-}
+export const SidebarMenuItem = ({ isCollapsed, children, icon: Icon, menu: { title, menuData } }: MenuItemProps) => {
+  const [isActive, setIsActive] = useState(false)
+  const menuListRef = useRef<HTMLDivElement>(null)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
 
-export const SidebarMenuItem = ({ name, icon: ItemIcon, menuData }: MenuItemProps) => (
-  <Menu isLazy placement='right'>
-    <MenuButton
-	  display='flex'
-	  alignItems='center'
-	  width="calc(100% - 32px)"
-	  mx={4}
-	  p="4"
-	  borderRadius="lg"
-	  role="group"
-	  cursor="pointer"
-	  color="#ffffff"
-	  _active={{
-		bg: colors.red[500],
-		color: colors.white[200],
-	  }}
-	  _hover={{
-		bg: colors.red[500],
-		color: colors.white[200],
-	  }}
-    >
-	  <Flex alignItems='center' gap='16px'>
-		<ItemIcon size={16} />
-		<Text as='span'>{name}</Text>
-	  </Flex>
-	</MenuButton>
-    <MenuList bgColor={colors.gray[800]} zIndex='overlay'>
-      <MenuGroup
-	    title='Canais de Suporte'
-		marginX='3'
-		marginY='2'
-		fontSize='0.875rem'
-		bgColor={colors.gray[800]}
+  const toggleMenu = () => {
+	setIsActive((prev) => !prev)
+  }
+
+  const closeMenu = () => {
+	setIsActive(false)
+  }
+
+  useEffect(() => {
+	const handler = (event: Event) => {
+      if (!menuListRef.current?.contains(event.target as Node) && !menuButtonRef.current?.contains(event.target as Node)) {
+		closeMenu()
+	  }
+	}
+	
+	window.addEventListener('click', handler)
+  
+	return () => {
+	  document.removeEventListener('click', handler)
+	}
+  }, [isActive])
+
+  return (
+    <div className='relative'>
+      <button
+  	    id='menu-button'
+  	    role='group'
+		ref={menuButtonRef}
+  	    className={cx(
+  	  	  'appearance-none outline-2 outline-offset-2 outline-transparent flex items-center rounded-lg cursor-pointer text-[#ffffff] bg-transparent',
+  	  	  'hover:bg-[#BF0D51] hover:text-white-200',
+  	  	  isCollapsed
+  	  	    ? 'h-12 w-[calc(100%-1rem)] mx-2 justify-center'
+  	  	    : 'w-[calc(100%-2rem)] mx-4 p-4',
+		  isActive && 'bg-[#BF0D51] text-white-200'
+  	    )}
+		onClick={toggleMenu}
+  	  >
+        <Icon className={cx("text-base hover:text-white-200", !isCollapsed && "mr-4 ")} />
+        {children}
+  	  </button>
+
+	  <div
+	    ref={menuListRef}
+	    className={cx(
+		  'absolute inset-[0_auto_auto_0] m-0 z-[1] origin-[left_center] opacity-100 outline-none',
+		  'min-w-56 px-3 py-4 rounded-md border bg-gray-800',
+		  isCollapsed
+		    ? 'top-[-2.3125rem] left-[4rem]'
+			: 'top-[-2.1875rem] left-[14.375rem]',
+		  isActive
+		    ? 'visible'
+			: 'invisible'
+		)}
 	  >
-		{menuData.map(({ name, url, icon }) => (
-		  <MenuItem
-			as='a'
-			href={url}
-			target='_blank'
-			icon={<HiOutlineExternalLink size={15}/>}
-			iconSpacing='0'
-			display='flex'
-			alignItems='center'
-			flexDirection='row-reverse'
-			bgColor={colors.gray[800]}
-		  >
-			<Flex alignItems='center' gap={2}>
-			  <Icon as={icon} boxSize="18px" />
-			  {name}
-			</Flex>
-		  </MenuItem>
-		))}
-      </MenuGroup>
-    </MenuList>
-  </Menu>
-)
+		<p className='text-sm font-semibold'>{title}</p>
+		<ul className='flex flex-col gap-3 mt-3'>
+		  {menuData.map(({ name, icon: Icon, url }) => (
+			<li>
+			  <a href={url} target='_blank' onClick={closeMenu}>
+				<div className='flex items-center justify-between'>
+				  <div className='flex items-center gap-2'>
+					<Icon size={18}/>
+					{name}
+				  </div>
+				  <HiOutlineExternalLink size={15} />
+				</div>
+			  </a>
+			</li>
+		  ))}
+		</ul>
+	  </div>
+    </div>
+  )
+}

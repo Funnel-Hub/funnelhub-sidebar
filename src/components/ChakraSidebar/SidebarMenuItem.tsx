@@ -2,18 +2,7 @@ import React from 'react'
 import { Flex, Icon, Menu, MenuButton, MenuGroup, MenuItem, MenuList, Text } from '@chakra-ui/react'
 import { HiOutlineExternalLink } from 'react-icons/hi'
 import { colors } from 'src/lib/theme'
-import { MenuItemData } from 'src/hooks/useMenu'
-import { IconType } from 'react-icons'
-
-type MenuItemProps = {
-  isCollapsed: boolean
-  children: React.ReactNode
-  icon: IconType
-  menu: {
-	title: string
-    menuData: MenuItemData[]
-  }
-}
+import { MenuItemProps } from '@components/SidebarProps'
 
 export const SidebarMenuItem = ({ isCollapsed, children, icon: ItemIcon, menu: { title, menuData } }: MenuItemProps) => (
   <Menu isLazy placement='right'>
