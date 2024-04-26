@@ -1,11 +1,19 @@
 import { CSSProperties } from "react"
 
-
-export interface ApiResponse {
+export type ApiResponse = {
     name: string
     icon: string
     url: string
     options?: CSSProperties
+	type?: 'button' | 'menu'
+	menu?: {
+		title: string
+		menuData: {
+		    name: string
+		    url: string
+		    icon: string
+		}[]
+	}
 }
 
 export interface ApiConfig {

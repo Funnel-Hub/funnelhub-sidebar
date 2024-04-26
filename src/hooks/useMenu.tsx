@@ -4,12 +4,24 @@ import * as FaIcons from 'react-icons/fa'
 import * as FiIcons from 'react-icons/fi'
 import { ApiConfig, fetchData } from 'src/lib/api'
 
+export interface MenuItemData {
+  name: string
+  url: string
+  icon: IconType
+}
+
 export interface SidebarOptions {
   name: string
   icon: IconType
   url: string
   options?: CSSProperties
+  type?: 'button' | 'menu'
+  menu?: {
+	title: string
+    menuData: MenuItemData[]
+  }
 }
+
 export const useMenu = (config: ApiConfig) => {
   const [data, setData] = useState<SidebarOptions[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -28,7 +40,18 @@ export const useMenu = (config: ApiConfig) => {
           const Icon = iconLibrary[value.icon as keyof typeof iconLibrary];
           return {
             ...value,
-            icon: Icon
+            icon: Icon,
+			type: value.type ?? 'button',
+			menu: {
+				title: value.menu?.title as unknown as string,
+				menuData: value.menu?.menuData.map((data) => {
+				  const Icon = FaIcons[data.icon as keyof typeof FaIcons]
+				  return {
+					...data,
+					icon: Icon
+				  }
+				}) as unknown as MenuItemData[]
+			}
           }
         })
         setData(sidebarOptions)
