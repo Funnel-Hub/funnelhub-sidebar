@@ -34,13 +34,14 @@ export const SidebarMenuItem = ({ isCollapsed, children, icon: ItemIcon, menu: {
 		<Text as='span'>{children}</Text>
 	  </Flex>
 	</MenuButton>
-    <MenuList bgColor={colors.gray[800]}>
+    <MenuList bgColor={colors.gray[800]} borderColor={'#ffffff29'}>
       <MenuGroup
 	    title={title}
 		marginX='3'
 		marginY='2'
 		fontSize='0.875rem'
 		bgColor={colors.gray[800]}
+		textColor={colors.white[200]}
 	  >
 		{menuData.map(({ name, url, icon }) => (
 		  <MenuItem
@@ -57,8 +58,8 @@ export const SidebarMenuItem = ({ isCollapsed, children, icon: ItemIcon, menu: {
 			  bg: colors.gray[700]
 			}}
 		  >
-			<Flex alignItems='center' gap={2}>
-			  <Icon as={icon} boxSize="18px" />
+			<Flex alignItems='center' gap={2} textColor={colors.white[200]}>
+			  <Icon as={icon} boxSize="18px" color={colors.white[200]} />
 			  {name}
 			</Flex>
 		  </MenuItem>
