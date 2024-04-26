@@ -48,7 +48,7 @@ export const SidebarMenuItem = ({ isCollapsed, children, icon: ItemIcon, menu: {
 			as='a'
 			href={url}
 			target='_blank'
-			icon={<HiOutlineExternalLink size={15}/>}
+			icon={<HiOutlineExternalLink size={15} color={colors.white[200]} />}
 			iconSpacing='0'
 			display='flex'
 			alignItems='center'
